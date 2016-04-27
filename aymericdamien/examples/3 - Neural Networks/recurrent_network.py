@@ -9,7 +9,7 @@ Project: https://github.com/aymericdamien/TensorFlow-Examples/
 
 # Import MINST data
 import input_data
-mnist = input_data.read_data_sets("/tmp/data/", one_hot=True)
+mnist = input_data.read_data_sets("MNIST_data/", one_hot=True)
 
 import tensorflow as tf
 from tensorflow.models.rnn import rnn, rnn_cell
@@ -101,13 +101,13 @@ with tf.Session() as sess:
             # Calculate batch loss
             loss = sess.run(cost, feed_dict={x: batch_xs, y: batch_ys,
                                              istate: np.zeros((batch_size, 2*n_hidden))})
-            print "Iter " + str(step*batch_size) + ", Minibatch Loss= " + "{:.6f}".format(loss) + \
-                  ", Training Accuracy= " + "{:.5f}".format(acc)
+            print("Iter " + str(step*batch_size) + ", Minibatch Loss= " + "{:.6f}".format(loss) + \
+                  ", Training Accuracy= " + "{:.5f}".format(acc))
         step += 1
-    print "Optimization Finished!"
+    print("Optimization Finished!")
     # Calculate accuracy for 256 mnist test images
     test_len = 256
     test_data = mnist.test.images[:test_len].reshape((-1, n_steps, n_input))
     test_label = mnist.test.labels[:test_len]
-    print "Testing Accuracy:", sess.run(accuracy, feed_dict={x: test_data, y: test_label,
-                                                             istate: np.zeros((test_len, 2*n_hidden))})
+    print("Testing Accuracy:", sess.run(accuracy, feed_dict={x: test_data, y: test_label,
+                                                             istate: np.zeros((test_len, 2*n_hidden))}))
